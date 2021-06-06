@@ -1,41 +1,64 @@
 package com.android.classadviser;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.WebResourceRequest;
+import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class MainActivity extends AppCompatActivity {
 
-    private WebView web;
-
+public class MainActivity extends Activity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        web =(WebView) findViewById(R.id.webview);
-        web.loadUrl("https://classadviser.in");
-        web.getSettings().setJavaScriptEnabled(true);
-        web.setWebViewClient(new myWebClient());
+        WebView webview = (WebView) findViewById(R.id.webView1);
+        WebSettings websettings = webview.getSettings();
+        websettings.setJavaScriptEnabled(true);
+        websettings.setSaveFormData(false);
+        webview.loadUrl("https://classadviser.in");
+        webview.setHorizontalScrollBarEnabled(false);
+        webview.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
+        webview.setBackgroundColor(128);
+        webview.setWebViewClient(new ClassAdviserWebViewClient());
+
+        webview.setDownloadListener(new DownloadListener() {
+            public void onDownloadStart(String url, String userAgent,
+                                        String contentDisposition, String mimetype,
+                                        long contentLength) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+
+            }
+        });
     }
 
-    public class myWebClient extends WebViewClient{
+    private class ClassAdviserWebViewClient extends WebViewClient {
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request){
-            return super.shouldOverrideUrlLoading(view, request);
+        public boolean shouldOverrideUrlLoading(WebView webview, String url){
+            webview.loadUrl(url);
+            return true;
         }
-    }
-    @Override
-    public void onBackPressed(){
-        if(web.canGoBack()) {
-            web.goBack();
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode,
+                                    String description, String failingUrl) {
+            view.loadUrl("file:///android_asset/noconnection.html");
         }
-        else{
-            super.onBackPressed();
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            findViewById(R.id.layout_splash).setVisibility(View.GONE);
         }
     }
 }

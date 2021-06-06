@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<RelativeLayout xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="fill_parent"
+    a:layout_height="fill_parent"
+    a:background="#aaaaaa"
+    a:orientation="vertical" >
+
     <WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        a:id="@+id/webView1"
+        a:layout_width="fill_parent"
+        a:layout_height="fill_parent" />
+    <RelativeLayout a:layout_width="fill_parent"
+        a:id="@+id/layout_splash"
+        a:background="#096484"
+        a:layout_height="fill_parent">
+
+        <ImageView
+            a:id="@+id/imageView1"
+            a:layout_width="250dp"
+            a:layout_height="250dp"
+            a:layout_centerInParent="true"
+            a:src="@drawable/ca_logo"
+            a:layout_centerHorizontal="true" />
+
+        <ProgressBar
+            a:id="@+id/progressBar1"
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:layout_below="@+id/imageView1"
+            a:layout_centerHorizontal="true" />
+
+        <TextView
+            a:id="@+id/textView1"
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:layout_alignParentBottom="true"
+            a:layout_centerHorizontal="true"
+            a:text="version 1.0"
+            a:layout_marginBottom="15dp"
+            a:textAppearance="?android:attr/textAppearanceSmall"
+            a:textColor="#fff" />
+
+    </RelativeLayout>
+
 </RelativeLayout>
