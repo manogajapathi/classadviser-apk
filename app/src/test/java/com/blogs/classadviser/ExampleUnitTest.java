@@ -1,4 +1,4 @@
-package com.android.classadviser;
+package com.blogs.classadviser;
 
 import org.junit.Test;
 
