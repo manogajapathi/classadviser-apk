@@ -61,6 +61,7 @@ public class MainActivity extends Activity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            findViewById(R.id.layout_splash).setVisibility(View.GONE);
             super.onPageFinished(view, url);
             try {
                 if (progressDialog .isShowing()) {
@@ -70,7 +71,6 @@ public class MainActivity extends Activity {
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-            findViewById(R.id.layout_splash).setVisibility(View.GONE);
         }
     }
     @Override
